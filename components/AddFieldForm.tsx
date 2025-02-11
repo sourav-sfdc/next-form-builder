@@ -1,3 +1,5 @@
+"use client"
+
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -52,6 +54,7 @@ export default function AddFieldForm({ onAddField }: AddFieldFormProps) {
             <SelectItem value="number">Number</SelectItem>
             <SelectItem value="textarea">Textarea</SelectItem>
             <SelectItem value="select">Select</SelectItem>
+            <SelectItem value="date">Date</SelectItem>
           </SelectContent>
         </Select>
       </div>

@@ -1,3 +1,5 @@
+"use client"
+
 import { useEffect, useState } from "react"
 import type { FormField } from "../hooks/useFormFields"
 import { Button } from "@/components/ui/button"
@@ -60,6 +62,18 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
             value={${field.name}}
             onChange={(e) => set${field.name.charAt(0).toUpperCase() + field.name.slice(1)}(e.target.value)}
             placeholder="${field.placeholder}"
+            required
+          />
+        </div>`
+          } else if (field.type === "date") {
+            return `
+        <div className="grid w-full items-center gap-1.5">
+          <Label htmlFor="${field.name}">${field.label}</Label>
+          <Input
+            type="date"
+            id="${field.name}"
+            value={${field.name}}
+            onChange={(e) => set${field.name.charAt(0).toUpperCase() + field.name.slice(1)}(e.target.value)}
             required
           />
         </div>`

@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-type FieldType = "text" | "email" | "password" | "number" | "textarea" | "select"
+type FieldType = "text" | "email" | "password" | "number" | "textarea" | "select" | "date"
 
 export interface FormField {
   id: string
@@ -8,7 +8,7 @@ export interface FormField {
   type: FieldType
   label: string
   placeholder: string
-  options?: string[] // New field for select options
+  options?: string[]
 }
 
 export function useFormFields() {

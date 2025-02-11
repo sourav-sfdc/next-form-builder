@@ -58,6 +58,18 @@ export default function PreviewModal({ fields, formTitle }: PreviewModalProps) {
             />
           </div>
         )
+      case "date":
+        return (
+          <div key={field.id} className="grid w-full items-center gap-1.5">
+            <Label htmlFor={field.name}>{field.label}</Label>
+            <Input
+              type="date"
+              id={field.name}
+              value={formData[field.name] || ""}
+              onChange={(e) => setFormData({ ...formData, [field.name]: e.target.value })}
+            />
+          </div>
+        )
       default:
         return (
           <div key={field.id} className="grid w-full items-center gap-1.5">
