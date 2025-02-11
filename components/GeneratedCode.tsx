@@ -82,7 +82,25 @@ export default function GeneratedCode({ fields, formTitle }: GeneratedCodeProps)
             required
           />
         </div>`
-          } else {
+        }
+        else if (field.type === "autocomplete") {
+          return `
+        <div className="grid w-full items-center gap-1.5">
+          <Autocomplete
+            id="${field.name}"
+            value={${field.name}}
+            label="${field.label}"
+            labelPlacement="outside"
+            radius="sm"
+            placeholder="${field.placeholder}"
+            onSelectionChange={(e) => set${field.name.charAt(0).toUpperCase() + field.name.slice(1)}(keyToString(e.target.value))}
+            required
+          >
+            <AutocompleteItem>sample data</AutocompleteItem>
+          </Autocomplete>
+        </div>`
+        }
+         else {
             return `
         <div className="grid w-full items-center gap-1.5">
           <Input

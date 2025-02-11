@@ -55,6 +55,7 @@ export default function AddFieldForm({ onAddField }: AddFieldFormProps) {
             <SelectItem value="textarea">Textarea</SelectItem>
             <SelectItem value="select">Select</SelectItem>
             <SelectItem value="date">Date</SelectItem>
+            <SelectItem value="autocomplete">Autocomplete</SelectItem>
           </SelectContent>
         </Select>
       </div>

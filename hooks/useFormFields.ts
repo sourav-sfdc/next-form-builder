@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-type FieldType = "text" | "email" | "password" | "number" | "textarea" | "select" | "date"
+type FieldType = "text" | "email" | "password" | "number" | "textarea" | "select" | "date" | "autocomplete"
 
 export interface FormField {
   id: string
