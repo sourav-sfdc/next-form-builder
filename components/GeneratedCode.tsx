@@ -100,7 +100,7 @@ export default function GeneratedForm() {${formFields}${handleSubmit}
   return (
     <Card className="w-full max-w-md mx-auto">
       <CardHeader>
-        <CardTitle>{formTitle}</CardTitle>
+        <CardTitle>${formTitle}</CardTitle>
         <CardDescription>Please fill out the form below.</CardDescription>
       </CardHeader>
       <form onSubmit={handleSubmit}>
@@ -121,7 +121,7 @@ ${component}`)
     }
 
     generateCode()
-  }, [fields])
+  }, [fields, formTitle])
 
   const copyToClipboard = async () => {
     try {

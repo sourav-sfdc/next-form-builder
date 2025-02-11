@@ -91,11 +91,11 @@ export default function PreviewModal({ fields, formTitle }: PreviewModalProps) {
       <DialogTrigger asChild>
         <Button>Preview Form</Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent>
         <DialogHeader>
           <DialogTitle>Form Preview</DialogTitle>
         </DialogHeader>
-        <Card className="w-full max-w-md mx-auto">
+        <Card className="w-full">
           <CardHeader>
             <CardTitle>{formTitle}</CardTitle>
             <CardDescription>Please fill out the form below.</CardDescription>
