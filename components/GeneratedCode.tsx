@@ -17,17 +17,17 @@ export default function GeneratedCode({ fields, formTitle }: GeneratedCodeProps)
   useEffect(() => {
     const generateCode = () => {
       const imports = `import { useState } from 'react'
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'`
+      import { Input } from '@heroui/input'
+      import {Autocomplete, AutocompleteItem, Button, CalendarDate} from "@heroui/react";
+      import {Textarea} from "@heroui/input";
+      import {DatePicker} from "@heroui/date-picker";
+      import {Select, SelectSection, SelectItem} from "@heroui/select";
+      import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'`
 
       const formFields = fields
         .map(
           (field) => `
-  const [${field.name}, set${field.name.charAt(0).toUpperCase() + field.name.slice(1)}] = useState('')`,
+          const [${field.name}, set${field.name.charAt(0).toUpperCase() + field.name.slice(1)}] = useState('')`,
         )
         .join("")
 
@@ -43,24 +43,27 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
           if (field.type === "select") {
             return `
         <div className="grid w-full items-center gap-1.5">
-          <Label htmlFor="${field.name}">${field.label}</Label>
-          <Select value={${field.name}} onValueChange={(value) => set${field.name.charAt(0).toUpperCase() + field.name.slice(1)}(value)}>
-            <SelectTrigger>
-              <SelectValue placeholder="${field.placeholder}" />
-            </SelectTrigger>
-            <SelectContent>
-              ${field.options?.map((option) => `<SelectItem value="${option}">${option}</SelectItem>`).join("\n              ")}
-            </SelectContent>
-          </Select>
+            <Select className="max-w-xs" 
+                    labelPlacement="outside" 
+                    radius="sm" 
+                    label="${field.label}" 
+                    value={${field.name}} 
+                    placeholder="${field.placeholder}" 
+                    onSelectionChange={(value) => set${field.name.charAt(0).toUpperCase() + field.name.slice(1)}(value)}
+                    >
+            ${field.options?.map((option) => `<SelectItem key="${option}" value="${option}">${option}</SelectItem>`).join("\n              ")}
+            </Select>
         </div>`
           } else if (field.type === "textarea") {
             return `
         <div className="grid w-full items-center gap-1.5">
-          <Label htmlFor="${field.name}">${field.label}</Label>
           <Textarea
             id="${field.name}"
             value={${field.name}}
             onChange={(e) => set${field.name.charAt(0).toUpperCase() + field.name.slice(1)}(e.target.value)}
+            label="${field.label}"
+            labelPlacement="outside"
+            radius="sm"
             placeholder="${field.placeholder}"
             required
           />
@@ -68,24 +71,28 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
           } else if (field.type === "date") {
             return `
         <div className="grid w-full items-center gap-1.5">
-          <Label htmlFor="${field.name}">${field.label}</Label>
-          <Input
-            type="date"
+          <Datepicker
             id="${field.name}"
             value={${field.name}}
-            onChange={(e) => set${field.name.charAt(0).toUpperCase() + field.name.slice(1)}(e.target.value)}
+            label="${field.label}"
+            labelPlacement="outside"
+            radius="sm"
+            placeholder="${field.placeholder}"
+            onChange={(e) => set${field.name.charAt(0).toUpperCase() + field.name.slice(1)}(e.target.value || parseDate(new Date().toISOString().split('T')[0]))}
             required
           />
         </div>`
           } else {
             return `
         <div className="grid w-full items-center gap-1.5">
-          <Label htmlFor="${field.name}">${field.label}</Label>
           <Input
             type="${field.type}"
             id="${field.name}"
             value={${field.name}}
             onChange={(e) => set${field.name.charAt(0).toUpperCase() + field.name.slice(1)}(e.target.value)}
+            label="${field.label}"
+            labelPlacement="outside"
+            radius="sm"
             placeholder="${field.placeholder}"
             required
           />
@@ -98,7 +105,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 export default function GeneratedForm() {${formFields}${handleSubmit}
 
   return (
-    <Card className="w-full max-w-md mx-auto">
+    <Card className="w-full">
       <CardHeader>
         <CardTitle>${formTitle}</CardTitle>
         <CardDescription>Please fill out the form below.</CardDescription>
@@ -108,7 +115,10 @@ export default function GeneratedForm() {${formFields}${handleSubmit}
           ${formInputs}
         </CardContent>
         <CardFooter>
-          <Button type="submit" className="w-full">Submit</Button>
+          <div className="w-full grid grid-cols-2 gap-2">
+            <Button type="submit" className="w-full" color={"primary"} radius="sm">Submit</Button>
+            <Button type="reset" className="w-full" color={"danger"} radius={"sm"}>Reset</Button>
+          </div>
         </CardFooter>
       </form>
     </Card>
